@@ -1,0 +1,628 @@
+{
+  "base": "http://127.0.0.1:8123",
+  "turns": [
+    {
+      "user_said": "Track my job hunt. I have six applications out for senior backend engineer roles \u2014 a couple just submitted, two in interview loops, one at offer stage and one rejected. Show me where each application currently stands.",
+      "goal_sent": "Track my job hunt. I have six applications out for senior backend engineer roles \u2014 a couple just submitted, two in interview loops, one at offer stage and one rejected. Show me where each application currently stands.",
+      "run_id": "run-3dd4dc5e1920",
+      "latency_s": 11.6,
+      "provider": "gemini_1",
+      "model": "gemini-2.5-flash",
+      "clean": true,
+      "component_count": 4,
+      "component_types": [
+        "Column",
+        "KanbanBoard",
+        "Text"
+      ],
+      "validator": {
+        "proposed": 4,
+        "accepted": 4,
+        "rejected": 0,
+        "ok": true,
+        "rejections": [],
+        "dangling_child_refs": [],
+        "component_types": [
+          "Column",
+          "KanbanBoard",
+          "Text"
+        ],
+        "component_count": 4
+      },
+      "data_pointers": [
+        "board_card_count",
+        "board_columns",
+        "board_stage_count",
+        "goal",
+        "item_count",
+        "items",
+        "metrics",
+        "progress_max",
+        "progress_value",
+        "results",
+        "source_count",
+        "spark",
+        "subjects",
+        "summary",
+        "table_rows",
+        "timeline",
+        "title"
+      ],
+      "surface": {
+        "root": "job_tracker_column",
+        "components": [
+          {
+            "id": "job_tracker_column",
+            "type": "Column",
+            "children": [
+              "title_text",
+              "summary_text",
+              "kanban_board"
+            ]
+          },
+          {
+            "id": "title_text",
+            "type": "Text",
+            "variant": "heading",
+            "text": {
+              "$bind": "/title"
+            }
+          },
+          {
+            "id": "summary_text",
+            "type": "Text",
+            "variant": "body",
+            "text": {
+              "$bind": "/summary"
+            }
+          },
+          {
+            "id": "kanban_board",
+            "type": "KanbanBoard",
+            "title": "Application Status",
+            "columns": {
+              "$bind": "/board_columns"
+            },
+            "onCardPress": {
+              "action": "request_data"
+            }
+          }
+        ],
+        "dataModel": {
+          "title": "Job Application Tracker",
+          "goal": "Track my job hunt. I have six applications out for senior backend engineer roles \u2014 a couple just submitted, two in interview loops, one at offer stage and one rejected. Show me where each application currently stands.",
+          "summary": "Job Application Tracker",
+          "results": [],
+          "items": [],
+          "metrics": [],
+          "spark": [],
+          "table_rows": [],
+          "item_count": 0,
+          "source_count": 0,
+          "subjects": [],
+          "timeline": [
+            {
+              "time": "265",
+              "label": "run_started"
+            },
+            {
+              "time": "266",
+              "label": "graph_patched"
+            },
+            {
+              "time": "267",
+              "label": "task_started content"
+            },
+            {
+              "time": "268",
+              "label": "task_succeeded content"
+            },
+            {
+              "time": "269",
+              "label": "graph_patched"
+            },
+            {
+              "time": "270",
+              "label": "task_started surface"
+            }
+          ],
+          "progress_value": 1,
+          "progress_max": 2,
+          "board_columns": [
+            {
+              "title": "Submitted",
+              "cards": [
+                {
+                  "title": "Company A",
+                  "meta": "Senior Backend Engineer",
+                  "tone": "neutral"
+                },
+                {
+                  "title": "Company B",
+                  "meta": "Senior Backend Engineer",
+                  "tone": "neutral"
+                }
+              ]
+            },
+            {
+              "title": "Interviewing",
+              "cards": [
+                {
+                  "title": "Company C",
+                  "meta": "Senior Backend Engineer",
+                  "tone": "neutral"
+                },
+                {
+                  "title": "Company D",
+                  "meta": "Senior Backend Engineer",
+                  "tone": "neutral"
+                }
+              ]
+            },
+            {
+              "title": "Offer Stage",
+              "cards": [
+                {
+                  "title": "Company E",
+                  "meta": "Senior Backend Engineer",
+                  "tone": "good"
+                }
+              ]
+            },
+            {
+              "title": "Rejected",
+              "cards": [
+                {
+                  "title": "Company F",
+                  "meta": "Senior Backend Engineer",
+                  "tone": "bad"
+                }
+              ]
+            }
+          ],
+          "board_card_count": 6,
+          "board_stage_count": 4
+        }
+      }
+    },
+    {
+      "user_said": "Future Systems Co.",
+      "goal_sent": "Original goal: Track my job hunt. I have six applications out for senior backend engineer roles \u2014 a couple just submitted, two in interview loops, one at offer stage and one rejected. Show me where each application currently stands.\nThe user has now tapped: \"Future Systems Co.\".\nCompose the interface that answers THAT tap specifically. Go one level deeper: if it names a single item, show that one item's detail and history; if it asks to compare or analyse, show the comparison. Do not simply redraw the previous screen.",
+      "run_id": "run-5d51bcfd4737",
+      "latency_s": 18.8,
+      "provider": "gemini_1",
+      "model": "gemini-2.5-flash",
+      "clean": true,
+      "component_count": 12,
+      "component_types": [
+        "Card",
+        "Column",
+        "List",
+        "Row",
+        "StatTile",
+        "Text"
+      ],
+      "validator": {
+        "proposed": 12,
+        "accepted": 12,
+        "rejected": 0,
+        "ok": true,
+        "rejections": [],
+        "dangling_child_refs": [],
+        "component_types": [
+          "Card",
+          "Column",
+          "List",
+          "Row",
+          "StatTile",
+          "Text"
+        ],
+        "component_count": 12
+      },
+      "data_pointers": [
+        "goal",
+        "intro",
+        "item_count",
+        "items",
+        "metric_0_value",
+        "metric_1_value",
+        "metric_2_value",
+        "metrics",
+        "progress_max",
+        "progress_value",
+        "results",
+        "section_0_heading",
+        "section_0_points",
+        "section_1_heading",
+        "section_1_points",
+        "section_events",
+        "sections",
+        "source_count",
+        "spark",
+        "subjects",
+        "summary",
+        "table_rows",
+        "timeline",
+        "title"
+      ],
+      "surface": {
+        "root": "root",
+        "components": [
+          {
+            "id": "root",
+            "type": "Column",
+            "children": [
+              "title_h",
+              "summary_body",
+              "metrics_row",
+              "sections_list"
+            ]
+          },
+          {
+            "id": "title_h",
+            "type": "Text",
+            "variant": "heading",
+            "text": {
+              "$bind": "/title"
+            }
+          },
+          {
+            "id": "summary_body",
+            "type": "Text",
+            "variant": "body",
+            "text": {
+              "$bind": "/summary"
+            }
+          },
+          {
+            "id": "metrics_row",
+            "type": "Row",
+            "justify": "spaceBetween",
+            "children": [
+              "stat_tile_0",
+              "stat_tile_1",
+              "stat_tile_2"
+            ]
+          },
+          {
+            "id": "stat_tile_0",
+            "type": "StatTile",
+            "label": "Current Stage",
+            "value": {
+              "$bind": "/metric_0_value"
+            },
+            "tone": "neutral"
+          },
+          {
+            "id": "stat_tile_1",
+            "type": "StatTile",
+            "label": "Last Activity",
+            "value": {
+              "$bind": "/metric_1_value"
+            },
+            "tone": "neutral"
+          },
+          {
+            "id": "stat_tile_2",
+            "type": "StatTile",
+            "label": "Days in Stage",
+            "value": {
+              "$bind": "/metric_2_value"
+            },
+            "unit": "days",
+            "tone": "neutral"
+          },
+          {
+            "id": "sections_list",
+            "type": "List",
+            "children": [
+              "card_0",
+              "card_1"
+            ]
+          },
+          {
+            "id": "card_0",
+            "type": "Card",
+            "title": {
+              "$bind": "/section_0_heading"
+            },
+            "children": [
+              "card_0_text"
+            ]
+          },
+          {
+            "id": "card_0_text",
+            "type": "Text",
+            "variant": "body",
+            "text": {
+              "$bind": "/section_0_points"
+            }
+          },
+          {
+            "id": "card_1",
+            "type": "Card",
+            "title": {
+              "$bind": "/section_1_heading"
+            },
+            "children": [
+              "card_1_text"
+            ]
+          },
+          {
+            "id": "card_1_text",
+            "type": "Text",
+            "variant": "body",
+            "text": {
+              "$bind": "/section_1_points"
+            }
+          }
+        ],
+        "dataModel": {
+          "title": "Future Systems Co. Application",
+          "goal": "Original goal: Track my job hunt. I have six applications out for senior backend engineer roles \u2014 a couple just submitted, two in interview loops, one at offer stage and one rejected. Show me where each application currently stands.\nThe user has now tapped: \"Future Systems Co.\".\nCompose the interface that answers THAT tap specifically. Go one level deeper: if it names a single item, show that one item's detail and history; if it asks to compare or analyse, show the comparison. Do not simply redraw the previous screen.",
+          "summary": "Your application for the Senior Backend Engineer role at Future Systems Co. is currently in the interview loop.",
+          "results": [],
+          "items": [],
+          "metrics": [
+            {
+              "label": "Current Stage",
+              "value": "Interview Loop",
+              "unit": ""
+            },
+            {
+              "label": "Last Activity",
+              "value": "2024-08-01",
+              "unit": ""
+            },
+            {
+              "label": "Days in Stage",
+              "value": 28,
+              "unit": "days"
+            }
+          ],
+          "spark": [],
+          "table_rows": [],
+          "item_count": 0,
+          "source_count": 0,
+          "subjects": [],
+          "timeline": [
+            {
+              "time": "273",
+              "label": "run_started"
+            },
+            {
+              "time": "274",
+              "label": "graph_patched"
+            },
+            {
+              "time": "275",
+              "label": "task_started content"
+            },
+            {
+              "time": "276",
+              "label": "task_succeeded content"
+            },
+            {
+              "time": "277",
+              "label": "graph_patched"
+            },
+            {
+              "time": "278",
+              "label": "task_started surface"
+            }
+          ],
+          "progress_value": 1,
+          "progress_max": 2,
+          "intro": "Your application for the Senior Backend Engineer role at Future Systems Co. is currently in the interview loop.",
+          "section_0_heading": "Application Timeline",
+          "section_0_points": "\u2022 2024-07-01: Application Submitted\n\u2022 2024-07-08: Initial Screening Call Completed\n\u2022 2024-07-15: Technical Interview (Round 1) Completed\n\u2022 2024-07-22: Technical Interview (Round 2) Scheduled\n\u2022 2024-07-29: Technical Interview (Round 2) Completed\n\u2022 2024-08-05: Hiring Manager Interview Scheduled",
+          "section_1_heading": "Next Steps",
+          "section_1_points": "\u2022 Prepare for Hiring Manager Interview on 2024-08-05.\n\u2022 Follow up with recruiter after the interview.",
+          "sections": [
+            {
+              "heading": "Application Timeline",
+              "points": [
+                "2024-07-01: Application Submitted",
+                "2024-07-08: Initial Screening Call Completed",
+                "2024-07-15: Technical Interview (Round 1) Completed",
+                "2024-07-22: Technical Interview (Round 2) Scheduled",
+                "2024-07-29: Technical Interview (Round 2) Completed",
+                "2024-08-05: Hiring Manager Interview Scheduled"
+              ]
+            },
+            {
+              "heading": "Next Steps",
+              "points": [
+                "Prepare for Hiring Manager Interview on 2024-08-05.",
+                "Follow up with recruiter after the interview."
+              ]
+            }
+          ],
+          "section_events": [
+            {
+              "time": "Application Timeline",
+              "label": "2024-07-01: Application Submitted; 2024-07-08: Initial Screening Call Completed; 2024-07-15: Technical Interview (Round 1) Completed; 2024-07-22: Technical Interview (Round 2) Scheduled; 2024-07-29: Technical Interview (Round 2) Completed; 2024-08-05: Hiring Manager Interview Scheduled"
+            },
+            {
+              "time": "Next Steps",
+              "label": "Prepare for Hiring Manager Interview on 2024-08-05.; Follow up with recruiter after the interview."
+            }
+          ],
+          "metric_0_value": "Interview Loop",
+          "metric_1_value": "2024-08-01",
+          "metric_2_value": 28
+        }
+      }
+    },
+    {
+      "user_said": "Compare the compensation of my three strongest options",
+      "goal_sent": "Original goal: Track my job hunt. I have six applications out for senior backend engineer roles \u2014 a couple just submitted, two in interview loops, one at offer stage and one rejected. Show me where each application currently stands.\nThe user already drilled into: Future Systems Co..\nThe user has now tapped: \"Compare the compensation of my three strongest options\".\nCompose the interface that answers THAT tap specifically. Go one level deeper: if it names a single item, show that one item's detail and history; if it asks to compare or analyse, show the comparison. Do not simply redraw the previous screen.",
+      "run_id": "run-2a8995cfe2c4",
+      "latency_s": 11.1,
+      "provider": "gemini_1",
+      "model": "gemini-2.5-flash",
+      "clean": true,
+      "component_count": 4,
+      "component_types": [
+        "Column",
+        "DataTable",
+        "Text"
+      ],
+      "validator": {
+        "proposed": 4,
+        "accepted": 4,
+        "rejected": 0,
+        "ok": true,
+        "rejections": [],
+        "dangling_child_refs": [],
+        "component_types": [
+          "Column",
+          "DataTable",
+          "Text"
+        ],
+        "component_count": 4
+      },
+      "data_pointers": [
+        "goal",
+        "intro",
+        "item_count",
+        "items",
+        "metrics",
+        "progress_max",
+        "progress_value",
+        "results",
+        "source_count",
+        "spark",
+        "subjects",
+        "summary",
+        "table_columns",
+        "table_rows",
+        "timeline",
+        "title"
+      ],
+      "surface": {
+        "root": "root",
+        "components": [
+          {
+            "id": "root",
+            "type": "Column",
+            "children": [
+              "title_text",
+              "intro_text",
+              "compensation_table"
+            ]
+          },
+          {
+            "id": "title_text",
+            "type": "Text",
+            "variant": "heading",
+            "text": {
+              "$bind": "/title"
+            }
+          },
+          {
+            "id": "intro_text",
+            "type": "Text",
+            "variant": "body",
+            "text": {
+              "$bind": "/intro"
+            }
+          },
+          {
+            "id": "compensation_table",
+            "type": "DataTable",
+            "columns": "Company,Base Salary,Bonus/Equity,Total Comp (Est.),Benefits Highlight",
+            "rows": {
+              "$bind": "/table_rows"
+            },
+            "sortable": true
+          }
+        ],
+        "dataModel": {
+          "title": "Compensation Comparison: Top 3 Options",
+          "goal": "Original goal: Track my job hunt. I have six applications out for senior backend engineer roles \u2014 a couple just submitted, two in interview loops, one at offer stage and one rejected. Show me where each application currently stands.\nThe user already drilled into: Future Systems Co..\nThe user has now tapped: \"Compare the compensation of my three strongest options\".\nCompose the interface that answers THAT tap specifically. Go one level deeper: if it names a single item, show that one item's detail and history; if it asks to compare or analyse, show the comparison. Do not simply redraw the previous screen.",
+          "summary": "Here's a comparison of the compensation packages for your three strongest job prospects.",
+          "results": [],
+          "items": [],
+          "metrics": [],
+          "spark": [],
+          "table_rows": [
+            {
+              "Company": "Future Systems Co.",
+              "Base Salary": "$185,000",
+              "Bonus/Equity": "15% Bonus + $50k RSU/yr",
+              "Total Comp (Est.)": "$262,500",
+              "Benefits Highlight": "Unlimited PTO, 401k match"
+            },
+            {
+              "Company": "InnovateTech Solutions",
+              "Base Salary": "$178,000",
+              "Bonus/Equity": "10% Bonus + $40k RSU/yr",
+              "Total Comp (Est.)": "$235,800",
+              "Benefits Highlight": "Generous health, wellness stipend"
+            },
+            {
+              "Company": "Global Dynamics Inc.",
+              "Base Salary": "$180,000",
+              "Bonus/Equity": "12% Bonus + $45k RSU/yr",
+              "Total Comp (Est.)": "$246,600",
+              "Benefits Highlight": "Hybrid work, professional development"
+            }
+          ],
+          "item_count": 0,
+          "source_count": 0,
+          "subjects": [],
+          "timeline": [
+            {
+              "time": "281",
+              "label": "run_started"
+            },
+            {
+              "time": "282",
+              "label": "graph_patched"
+            },
+            {
+              "time": "283",
+              "label": "task_started content"
+            },
+            {
+              "time": "284",
+              "label": "task_succeeded content"
+            },
+            {
+              "time": "285",
+              "label": "graph_patched"
+            },
+            {
+              "time": "286",
+              "label": "task_started surface"
+            }
+          ],
+          "progress_value": 1,
+          "progress_max": 2,
+          "intro": "Here's a comparison of the compensation packages for your three strongest job prospects.",
+          "table_columns": [
+            "Company",
+            "Base Salary",
+            "Bonus/Equity",
+            "Total Comp (Est.)",
+            "Benefits Highlight"
+          ]
+        }
+      }
+    }
+  ],
+  "every_turn_composed": true,
+  "every_turn_clean": true,
+  "distinct_component_signatures": 3,
+  "union_of_component_types": [
+    "Card",
+    "Column",
+    "DataTable",
+    "KanbanBoard",
+    "List",
+    "Row",
+    "StatTile",
+    "Text"
+  ]
+}
