@@ -120,8 +120,19 @@ def _start_gateway() -> None:
     volumes={"/data": data_volume},
     secrets=[gemini_secret],
     timeout=900,
-    min_containers=0,  # scale to zero when idle
+    min_containers=0,       # scale to zero when idle
+    # EXACTLY ONE container, and this is load-bearing. A run lives in the
+    # runtime's IN-PROCESS graph, and the client then reads it back with
+    # GET /v1/runs/{id}/composed. Under autoscaling that second request can land
+    # on a container that never saw the run, which 404s and shows the user "no
+    # interface composed" even though the run succeeded. The graph and memory are
+    # also SQLite on a shared Volume, which must not have concurrent writers.
+    max_containers=1,
+    # Keep the container warm between turns so a conversation - and a screen
+    # recording - does not pay a cold start on every tap.
+    scaledown_window=600,
 )
+@modal.concurrent(max_inputs=20)  # one container still serves parallel requests
 @modal.asgi_app()
 def web():
     """Serve S14Code; the gateway runs beside it on loopback."""
