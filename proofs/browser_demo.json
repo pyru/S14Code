@@ -4,7 +4,7 @@
     {
       "turn": 1,
       "label": "opening goal",
-      "status": "gemini_1 \u00b7 4 components \u00b7 0 executable\n\u00b7 11.6s \u00b7 Column, Text, KanbanBoard",
+      "status": "gemini_1 \u00b7 4 components \u00b7 0 executable\n\u00b7 12.9s \u00b7 Column, Text, KanbanBoard",
       "kanban_lanes": 4,
       "kanban_cards": 6,
       "stat_tiles": 0,
@@ -29,30 +29,33 @@
     },
     {
       "turn": 2,
-      "label": "tapped \"Company A\"",
-      "status": "gemini_1 \u00b7 4 components \u00b7 0 executable\n\u00b7 28.9s \u00b7 Column, Text, Row, StatTile",
+      "label": "tapped \"Application 1\"",
+      "status": "gemini_1 \u00b7 9 components \u00b7 0 executable\n\u00b7 16.0s \u00b7 Column, Text, Row, StatTile, Card",
       "kanban_lanes": 0,
       "kanban_cards": 0,
-      "stat_tiles": 1,
+      "stat_tiles": 3,
       "tables": 0,
       "timelines": 0,
       "skipped_unknown_types": 0,
       "rendered_class_sample": [
+        "Card",
         "Column",
         "Row",
         "StatTile",
         "Text",
+        "ct",
         "dl",
         "lab",
+        "md-p",
         "val"
       ],
       "screenshot": "screens/turn2.png",
-      "tapped": "Company A"
+      "tapped": "Application 1"
     },
     {
       "turn": 3,
       "label": "comparison request",
-      "status": "gemini_1 \u00b7 4 components \u00b7 0 executable\n\u00b7 11.0s \u00b7 Column, Text, DataTable",
+      "status": "gemini_1 \u00b7 4 components \u00b7 0 executable\n\u00b7 12.4s \u00b7 Column, Text, DataTable",
       "kanban_lanes": 0,
       "kanban_cards": 0,
       "stat_tiles": 0,
@@ -70,10 +73,11 @@
     {
       "turn": 4,
       "label": "hostile prompt",
-      "status": "gemini_1 \u00b7 9 components \u00b7 0 executable\n\u00b7 17.7s \u00b7 Column, Text, Row, StatTile, Divider, KanbanBoard, Button",
+      "status": "gemini_1 \u00b7 3 components \u00b7 0 executable\n\u00b7 24.7s \u00b7 Column, Text, KanbanBoard",
       "refusals_shown_in_ui": [
-        "[data-not-code] title_text.text \u2014 value carries markup",
-        "[data-not-code] special_image.src \u2014 value is a script/data URL"
+        "[data-not-code] h1_title.text \u2014 value carries markup",
+        "[event] export_button.onPress \u2014 unregistered action 'export_all_candidate_data'",
+        "[data-not-code] malicious_image.src \u2014 value is a script/data URL"
       ],
       "safe_components_still_rendered": true,
       "no_script_tag_reached_the_dom": true,

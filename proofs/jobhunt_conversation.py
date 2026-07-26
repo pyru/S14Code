@@ -29,9 +29,14 @@ OUT = Path(__file__).parent / "jobhunt_conversation.json"
 OPENING = ("Track my job hunt. I have six applications out for senior backend engineer roles — "
            "a couple just submitted, two in interview loops, one at offer stage and one rejected. "
            "Show me where each application currently stands.")
+# Each tap is chosen to have a genuinely different SHAPE of data behind it, so
+# the interface has to change component, not just content: one item (detail),
+# rows (comparison), a numeric series (chart), an ordered sequence (timeline).
 TAPS = [
     "Future Systems Co.",                       # a card in the Interviewing lane
     "Compare the compensation of my three strongest options",
+    "Score my interview performance out of 10 across my last six onsite loops",
+    "Walk me through the hiring process stages at Future Systems Co. in order",
 ]
 
 
@@ -80,28 +85,46 @@ def main() -> None:
     convo: list[str] = [OPENING]
     turns = []
     with httpx.Client(timeout=300) as client:
-        for index in range(3):
+        for index in range(len(TAPS) + 1):
             if index:
                 convo.append(TAPS[index - 1])
             record = turn(client, convo)
             turns.append(record)
+            unresolved = (record["validator"] or {}).get("unresolved_bindings") or []
             print(f"turn {index + 1}: {record['component_count']:>2} components, "
-                  f"clean={record['clean']}, {record['latency_s']}s  {record['component_types']}")
+                  f"clean={record['clean']}, {record['latency_s']}s  {record['component_types']}"
+                  + (f"  !! bound to nothing: {unresolved}" if unresolved else ""))
 
     # The claim this proof exists to support: every turn is a composed, validated
     # interface, and the turns are genuinely DIFFERENT interfaces.
     signatures = [tuple(t["component_types"]) for t in turns]
+    union = {t for sig in signatures for t in sig}
+    # The variety claim, checked rather than asserted: the right RICH component
+    # for each shape of data the conversation actually produced.
+    coverage = {
+        "stages -> KanbanBoard": sorted(union & {"KanbanBoard"}),
+        "rows -> DataTable": sorted(union & {"DataTable"}),
+        "series -> BarChart/Sparkline": sorted(union & {"BarChart", "Sparkline"}),
+        "sequence -> Timeline": sorted(union & {"Timeline"}),
+        "key numbers -> StatTile": sorted(union & {"StatTile"}),
+    }
     report = {
         "base": BASE,
         "turns": turns,
         "every_turn_composed": all(t["component_count"] > 0 for t in turns),
         "every_turn_clean": all(t["clean"] for t in turns),
         "distinct_component_signatures": len(set(signatures)),
-        "union_of_component_types": sorted({t for sig in signatures for t in sig}),
+        "union_of_component_types": sorted(union),
+        "rich_component_coverage": coverage,
+        "every_shape_got_its_component": all(bool(v) for v in coverage.values()),
+        "every_binding_resolved": all(
+            not ((t["validator"] or {}).get("unresolved_bindings") or []) for t in turns),
     }
     OUT.write_text(json.dumps(report, indent=2), encoding="utf-8")
-    print(f"\ndistinct interface shapes: {report['distinct_component_signatures']}/3")
+    print(f"\ndistinct interface shapes: {report['distinct_component_signatures']}/{len(turns)}")
     print(f"components used across the conversation: {report['union_of_component_types']}")
+    for shape, hit in coverage.items():
+        print(f"  {shape:32} {hit if hit else '** ABSENT **'}")
     print(f"-> {OUT}")
 
 
