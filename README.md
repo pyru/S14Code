@@ -182,6 +182,25 @@ is what earns the next turn.
 The shell holds no templates and no domain logic. It shows the validator's own
 refusals inline, so a hostile turn is visible rather than silent.
 
+### Hosting it
+
+[`modal_app.py`](modal_app.py) deploys the application as **one container with
+two processes**: the gateway on `127.0.0.1:8111`, never published, and S14Code
+as the public ASGI app. The provider key comes from a Modal Secret, is handed to
+the gateway subprocess, and is then deleted from the app process's environment —
+so the UI layer holds no credential at runtime, exactly as it does locally. The
+container has no Ollama, so the runtime uses the offline `DeterministicEmbedder`
+via `S13_EMBEDDER=deterministic`; that changes memory recall quality only, and
+every model completion still goes through the gateway to Gemini.
+
+```bash
+modal secret create s14-gemini GEMINI_API_KEY=<your key>
+GLC_PACKAGE_DIR=/path/to/glc_v3/glc modal deploy modal_app.py
+```
+
+The gateway package is a separate project and is deliberately **not** vendored
+into this repository; point `GLC_PACKAGE_DIR` at your checkout.
+
 ## Proofs and tests
 
 Everything the Session 14 widgets replay is real captured output under `proofs/`:

@@ -16,7 +16,7 @@ from typing import Any
 
 from s13code.core.live_graph import GraphPatch, GraphStore, LiveGraphExecutor, TaskSpec
 from s13code.core.memory import MemoryKind, MemoryRecord, MemoryScope, MemoryStore, Principal, SourceRef
-from s13code.core.memory.embeddings import OllamaNomicEmbedder
+from s13code.core.memory.embeddings import DeterministicEmbedder, OllamaNomicEmbedder
 from s13code.planner import ConstrainedGraphPatchPlanner
 from s13code.tools import fetch_url, sandbox_files, sandbox_path, web_search
 
@@ -207,7 +207,16 @@ class S13Runtime:
         # between those profiles.
         self.root = root or Path(os.getenv("S13_DATA_DIR", str(Path.home() / ".s13code")))
         self.root.mkdir(parents=True, exist_ok=True)
-        self.memory = MemoryStore(self.root / "memory.sqlite", embedder=OllamaNomicEmbedder())
+        # Every run writes an episode record, and writing embeds. Local dev has
+        # Ollama; a hosted demo container does not, so the embedder is selectable
+        # by env. "deterministic" is the offline embedder from embeddings.py — it
+        # keeps recall working without a model server. Default stays Ollama, so
+        # nothing changes for anyone running this on a laptop.
+        embedder = (DeterministicEmbedder()
+                    if os.getenv("S13_EMBEDDER", "ollama").strip().lower() == "deterministic"
+                    else OllamaNomicEmbedder(
+                        base_url=os.getenv("OLLAMA_URL", "http://localhost:11434")))
+        self.memory = MemoryStore(self.root / "memory.sqlite", embedder=embedder)
         self.graph = GraphStore(self.root / "graph.sqlite")
 
     def close(self) -> None:
